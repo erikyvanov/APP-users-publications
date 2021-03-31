@@ -3,19 +3,30 @@ import 'package:provider/provider.dart';
 
 import 'package:users_publications/routes/routes.dart';
 import 'package:users_publications/themes/theme_charger.dart';
+import 'package:users_publications/services/user_preferences.dart';
 
-void main() => runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => ThemeChanger())],
-    child: MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new UserPreferences();
+  await prefs.initPrefs();
+
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => ThemeChanger())],
+      child: MyApp()));
+}
 
 class MyApp extends StatelessWidget {
+  final userPreferences = UserPreferences();
+
   @override
   Widget build(BuildContext context) {
+    final String initialRoute = userPreferences.init ? init.name : login.name;
+
     return MaterialApp(
       theme: Provider.of<ThemeChanger>(context).currentTheme,
       debugShowCheckedModeBanner: false,
       title: 'Users-Publications',
-      initialRoute: init.name,
+      initialRoute: initialRoute,
       routes: routes,
     );
   }

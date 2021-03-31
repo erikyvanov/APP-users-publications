@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:users_publications/routes/routes.dart';
 import 'package:users_publications/themes/theme_charger.dart';
+import 'package:users_publications/services/user_preferences.dart';
 
 import 'package:users_publications/widgets/slideshow.dart';
 
@@ -12,6 +13,8 @@ class InitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final appTheme = Provider.of<ThemeChanger>(context);
+
+    // print(size.width);
 
     return Scaffold(
       // backgroundColor: Colors.white12,
@@ -44,16 +47,19 @@ class InitPage extends StatelessWidget {
                 'Usa Json Web Token para la autenticación de usuarios'),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: size.width > 700
+                  horizontal: size.width > 896
                       ? (size.height * 0.4)
                       : (size.height * 0.1),
                   vertical: 280),
               child: ElevatedButton(
                 onPressed: () {
+                  final UserPreferences prefs = UserPreferences();
+                  prefs.init = false;
+
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(login.name, (route) => false);
                 },
-                child: size.width > 700
+                child: size.width > 896
                     ? Text(
                         'Continuar',
                         style: TextStyle(fontSize: 20),
