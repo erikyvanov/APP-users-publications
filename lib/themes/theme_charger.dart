@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 class ThemeChanger with ChangeNotifier {
   final ThemeData _myCustomThemeDark = ThemeData.dark().copyWith(
+    backgroundColor: Color(0xff3A374A),
     accentColor: Color(0xffD80D4C),
     scaffoldBackgroundColor: Color(0xff252036),
     primaryColorLight: Color(0xffDEDDE5),

@@ -12,37 +12,54 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 20,
-            ),
-            SafeArea(
-              top: true,
-              bottom: false,
-              child: Icon(
-                FontAwesomeIcons.solidHandPeace,
-                color: appTheme.accentColor.withOpacity(0.8),
-                size: size.height * 0.2,
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal:
+                  (size.width > 650) ? size.width * 0.1 + size.width / 6 : 0,
+              vertical: (size.width > 650) ? 50 : 0),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            decoration: BoxDecoration(
+                color: (size.width > 650)
+                    ? appTheme.backgroundColor
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(50)),
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 20,
+                  ),
+                  SafeArea(
+                    top: true,
+                    bottom: false,
+                    child: Icon(
+                      FontAwesomeIcons.solidHandPeace,
+                      color: appTheme.accentColor.withOpacity(0.8),
+                      size: size.height * 0.2,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Iniciar Sesión',
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white.withOpacity(0.9)),
+                  ),
+                  _LoginForm(),
+                  // Spacer(),
+                  _Footer()
+                ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Iniciar Sesión',
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white.withOpacity(0.9)),
-            ),
-            _LoginForm(),
-            // Spacer(),
-            _Footer()
-          ],
+          ),
         ),
       ),
     );
