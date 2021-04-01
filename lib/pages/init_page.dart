@@ -45,26 +45,24 @@ class InitPage extends StatelessWidget {
                   height: size.height * 0.55,
                 ),
                 'Usa Json Web Token para la autenticación de usuarios'),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.width > 896
-                      ? (size.height * 0.4)
-                      : (size.height * 0.1),
-                  vertical: 280),
-              child: ElevatedButton(
-                onPressed: () {
-                  final UserPreferences prefs = UserPreferences();
-                  prefs.init = false;
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints.tightFor(width: 200, height: 60),
+                child: ElevatedButton(
+                  onPressed: () {
+                    final UserPreferences prefs = UserPreferences();
+                    prefs.init = false;
 
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(login.name, (route) => false);
-                },
-                child: size.width > 896
-                    ? Text(
-                        'Continuar',
-                        style: TextStyle(fontSize: 20),
-                      )
-                    : Text('Continuar'),
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(login.name, (route) => false);
+                  },
+                  child: size.width > 896
+                      ? Text(
+                          'Continuar',
+                          style: TextStyle(fontSize: 20),
+                        )
+                      : Text('Continuar'),
+                ),
               ),
             )
           ]),
