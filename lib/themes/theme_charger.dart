@@ -6,6 +6,19 @@ class ThemeChanger with ChangeNotifier {
     accentColor: Color(0xffD80D4C),
     scaffoldBackgroundColor: Color(0xff252036),
     primaryColorLight: Color(0xffDEDDE5),
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+      overlayColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          return Colors.white.withOpacity(0.05); // Use the component's default.
+        },
+      ),
+      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          return Colors.transparent; // Use the component's default.
+        },
+      ),
+    )),
     elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
       backgroundColor: MaterialStateProperty.resolveWith<Color>(
         (Set<MaterialState> states) {
@@ -19,6 +32,20 @@ class ThemeChanger with ChangeNotifier {
 
   final ThemeData _myCustomThemeLigth = ThemeData.light().copyWith(
       accentColor: Color(0xffD80D4C),
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+        overlayColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            return Colors.white
+                .withOpacity(0.05); // Use the component's default.
+          },
+        ),
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            return Colors.transparent; // Use the component's default.
+          },
+        ),
+      )),
       elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
