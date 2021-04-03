@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:users_publications/api/auth.dart';
-import 'package:users_publications/pages/login_page.dart';
 
 import 'package:users_publications/themes/theme_charger.dart';
 import 'package:users_publications/helpers/email_validator.dart';
@@ -163,28 +162,32 @@ class __SignInFormState extends State<_SignInForm> {
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 150, height: 40),
               child: ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
-                      _loading = true;
-                    });
+                  onPressed: _loading
+                      ? null
+                      : () async {
+                          setState(() {
+                            _loading = true;
+                          });
 
-                    if (_forKey.currentState!.validate()) {
-                      final auth = await AuthService()
-                          .newUser(_name, _lastname, _email, _password);
+                          if (_forKey.currentState!.validate()) {
+                            final auth = await AuthService()
+                                .newUser(_name, _lastname, _email, _password);
 
-                      if (auth['ok']) {
-                        showAlertAndReturnLogin(context, auth['message']);
-                      } else {
-                        showAlert(context, auth['message']);
-                      }
-                    }
+                            if (auth['ok']) {
+                              showAlertAndReturnLogin(context, auth['message']);
+                            } else {
+                              showAlert(context, auth['message']);
+                            }
+                          }
 
-                    setState(() {
-                      _loading = true;
-                    });
-                  },
+                          setState(() {
+                            _loading = false;
+                          });
+                        },
                   child: _loading
-                      ? CircularProgressIndicator()
+                      ? CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        )
                       : Text('Regístrarse')),
             ),
           ],

@@ -139,24 +139,27 @@ class __LoginFormState extends State<_LoginForm> {
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 150, height: 40),
               child: ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
-                      _loading = true;
-                    });
-                    if (_forKey.currentState!.validate()) {
-                      final auth = await AuthService().login(_email, _password);
+                  onPressed: _loading
+                      ? null
+                      : () async {
+                          setState(() {
+                            _loading = true;
+                          });
+                          if (_forKey.currentState!.validate()) {
+                            final auth =
+                                await AuthService().login(_email, _password);
 
-                      if (auth['ok']) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            HomePage.name, (route) => false);
-                      } else {
-                        showAlert(context, auth['message']);
-                      }
-                    }
-                    setState(() {
-                      _loading = false;
-                    });
-                  },
+                            if (auth['ok']) {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  HomePage.name, (route) => false);
+                            } else {
+                              showAlert(context, auth['message']);
+                            }
+                          }
+                          setState(() {
+                            _loading = false;
+                          });
+                        },
                   child: _loading
                       ? CircularProgressIndicator(
                           backgroundColor: Colors.white,
