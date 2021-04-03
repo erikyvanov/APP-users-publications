@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:users_publications/api/auth.dart';
+import 'package:users_publications/pages/login_page.dart';
 
 import 'package:users_publications/themes/theme_charger.dart';
 import 'package:users_publications/helpers/email_validator.dart';
+import 'package:users_publications/utils/alert.dart';
 
 class SignInPage extends StatelessWidget {
   static final String name = 'sign in';
@@ -95,6 +98,8 @@ class __SignInFormState extends State<_SignInForm> {
   String _password = '';
   String _repeatPassword = '';
 
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -158,15 +163,29 @@ class __SignInFormState extends State<_SignInForm> {
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 150, height: 40),
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    setState(() {
+                      _loading = true;
+                    });
+
                     if (_forKey.currentState!.validate()) {
-                      // TODO: Enviar a servidor
-                      print('Bien');
-                      print(
-                          '$_email $_password $_repeatPassword $_name $_lastname');
+                      final auth = await AuthService()
+                          .newUser(_name, _lastname, _email, _password);
+
+                      if (auth['ok']) {
+                        showAlertAndReturnLogin(context, auth['message']);
+                      } else {
+                        showAlert(context, auth['message']);
+                      }
                     }
+
+                    setState(() {
+                      _loading = true;
+                    });
                   },
-                  child: Text('Regístrarse')),
+                  child: _loading
+                      ? CircularProgressIndicator()
+                      : Text('Regístrarse')),
             ),
           ],
         ));

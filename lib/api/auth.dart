@@ -20,11 +20,11 @@ class AuthService {
 
     final resp = await http.post(url, body: json.encode(authData));
 
-    if (resp.statusCode >= 400) {
-      return {'ok': false, 'message': resp.body};
+    if (resp.statusCode == 201) {
+      return {'ok': true, 'message': 'El usuario se registró correctamente'};
     }
 
-    return {'ok': true, 'message': 'El usuario se registró correctamente'};
+    return {'ok': false, 'message': resp.body};
   }
 
   Future<Map<String, dynamic>> login(String email, String password) async {
