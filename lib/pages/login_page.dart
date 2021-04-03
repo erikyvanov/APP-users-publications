@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:users_publications/api/auth.dart';
 
 import 'package:users_publications/helpers/email_validator.dart';
+import 'package:users_publications/pages/home_page.dart';
 import 'package:users_publications/pages/sign_in_page.dart';
 import 'package:users_publications/themes/theme_charger.dart';
+import 'package:users_publications/utils/alert.dart';
 
 class LoginPage extends StatelessWidget {
   static final String name = 'login';
@@ -98,6 +101,7 @@ class __LoginFormState extends State<_LoginForm> {
   final GlobalKey<FormState> _forKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -135,14 +139,28 @@ class __LoginFormState extends State<_LoginForm> {
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 150, height: 40),
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    setState(() {
+                      _loading = true;
+                    });
                     if (_forKey.currentState!.validate()) {
-                      // TODO: Enviar a servidor
-                      print('Bien');
-                      print('$_email $_password');
+                      final auth = await AuthService().login(_email, _password);
+
+                      if (auth['ok']) {
+                        Navigator.pushReplacementNamed(context, HomePage.name);
+                      } else {
+                        showAlert(context, auth['message']);
+                      }
                     }
+                    setState(() {
+                      _loading = false;
+                    });
                   },
-                  child: Text('Entrar')),
+                  child: _loading
+                      ? CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        )
+                      : Text('Entrar')),
             ),
           ],
         ),
