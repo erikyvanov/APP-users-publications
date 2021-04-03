@@ -11,38 +11,71 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
-    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SafeArea(
-                top: true,
-                bottom: false,
-                child: Icon(
-                  FontAwesomeIcons.handPeace,
-                  color: appTheme.accentColor.withOpacity(0.8),
-                  size: size.height * 0.15,
-                ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth > 650) {
+            return Container(
+              color: appTheme.backgroundColor,
+              height: double.infinity,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: FractionallySizedBox(
+                widthFactor: 0.5,
+                heightFactor: 0.9,
+                child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: constraints.maxWidth * 0.05),
+                    decoration: BoxDecoration(
+                        color: appTheme.scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: _SignIn()),
               ),
-              SizedBox(
-                height: 20,
+            );
+          } else {
+            return _SignIn();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _SignIn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final size = MediaQuery.of(context).size;
+
+    return Center(
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SafeArea(
+              top: true,
+              bottom: false,
+              child: Icon(
+                FontAwesomeIcons.handPeace,
+                color: appTheme.accentColor.withOpacity(0.8),
+                size: size.height * 0.15,
               ),
-              Text(
-                'Regístrate',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white.withOpacity(0.9)),
-              ),
-              _SignInForm()
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Regístrate',
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white.withOpacity(0.9)),
+            ),
+            _SignInForm()
+          ],
         ),
       ),
     );
