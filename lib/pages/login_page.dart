@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
 import 'package:users_publications/helpers/email_validator.dart';
+import 'package:users_publications/routes/routes.dart';
 
 import 'package:users_publications/themes/theme_charger.dart';
 
@@ -74,7 +76,9 @@ class _Footer extends StatelessWidget {
       children: [
         Text('¿Aún no tienes cuenta? '),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, signIn.name);
+            },
             child: Text(
               'Regístrate',
               style: TextStyle(color: Colors.pink),
@@ -137,7 +141,7 @@ class __LoginFormState extends State<_LoginForm> {
                       print('$_email $_password');
                     }
                   },
-                  child: Text('Enviar')),
+                  child: Text('Entrar')),
             ),
           ],
         ),
