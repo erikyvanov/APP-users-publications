@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:users_publications/pages/init_page.dart';
+import 'package:users_publications/pages/login_page.dart';
 
 import 'package:users_publications/routes/routes.dart';
 import 'package:users_publications/themes/theme_charger.dart';
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String initialRoute = userPreferences.init ? init.name : login.name;
+    final String initialRoute =
+        userPreferences.init ? InitPage.name : LoginPage.name;
 
     return MaterialApp(
       theme: Provider.of<ThemeChanger>(context).currentTheme,

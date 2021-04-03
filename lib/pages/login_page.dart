@@ -3,11 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:users_publications/helpers/email_validator.dart';
-import 'package:users_publications/routes/routes.dart';
-
+import 'package:users_publications/pages/sign_in_page.dart';
 import 'package:users_publications/themes/theme_charger.dart';
 
 class LoginPage extends StatelessWidget {
+  static final String name = 'login';
+
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
@@ -77,7 +78,7 @@ class _Footer extends StatelessWidget {
         Text('¿Aún no tienes cuenta? '),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, signIn.name);
+              Navigator.pushNamed(context, SignInPage.name);
             },
             child: Text(
               'Regístrate',

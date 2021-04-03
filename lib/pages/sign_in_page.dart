@@ -6,6 +6,8 @@ import 'package:users_publications/themes/theme_charger.dart';
 import 'package:users_publications/helpers/email_validator.dart';
 
 class SignInPage extends StatelessWidget {
+  static final String name = 'sign in';
+
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;

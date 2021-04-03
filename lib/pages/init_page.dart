@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:users_publications/pages/login_page.dart';
 
-import 'package:users_publications/routes/routes.dart';
 import 'package:users_publications/themes/theme_charger.dart';
 import 'package:users_publications/services/user_preferences.dart';
 
 import 'package:users_publications/widgets/slideshow.dart';
 
 class InitPage extends StatelessWidget {
+  static final String name = 'init';
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final appTheme = Provider.of<ThemeChanger>(context);
-
-    // print(size.width);
 
     return Scaffold(
       // backgroundColor: Colors.white12,
@@ -53,8 +53,8 @@ class InitPage extends StatelessWidget {
                     final UserPreferences prefs = UserPreferences();
                     prefs.init = false;
 
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(login.name, (route) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        LoginPage.name, (route) => false);
                   },
                   child: size.width > 896
                       ? Text(
