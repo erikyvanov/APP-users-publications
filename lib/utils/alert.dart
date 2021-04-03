@@ -25,8 +25,8 @@ void showAlertAndReturnLogin(BuildContext context, String message) {
           title: Text(message),
           actions: [
             ElevatedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed(LoginPage.name),
+                onPressed: () => Navigator.of(context)
+                    .pushNamedAndRemoveUntil(LoginPage.name, (route) => false),
                 child: Text('Aceptar'))
           ],
         );

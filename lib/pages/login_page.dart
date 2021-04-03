@@ -147,7 +147,8 @@ class __LoginFormState extends State<_LoginForm> {
                       final auth = await AuthService().login(_email, _password);
 
                       if (auth['ok']) {
-                        Navigator.pushReplacementNamed(context, HomePage.name);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            HomePage.name, (route) => false);
                       } else {
                         showAlert(context, auth['message']);
                       }
