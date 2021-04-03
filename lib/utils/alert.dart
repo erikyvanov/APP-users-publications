@@ -4,6 +4,7 @@ import 'package:users_publications/pages/login_page.dart';
 
 void showAlert(BuildContext context, String message) {
   showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -19,6 +20,7 @@ void showAlert(BuildContext context, String message) {
 
 void showAlertAndReturnLogin(BuildContext context, String message) {
   showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
