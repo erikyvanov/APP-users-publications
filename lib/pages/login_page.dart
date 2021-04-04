@@ -161,8 +161,12 @@ class __LoginFormState extends State<_LoginForm> {
                           });
                         },
                   child: _loading
-                      ? CircularProgressIndicator(
-                          backgroundColor: Colors.white,
+                      ? ConstrainedBox(
+                          constraints:
+                              BoxConstraints.tightFor(width: 30, height: 30),
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                          ),
                         )
                       : Text('Entrar')),
             ),
