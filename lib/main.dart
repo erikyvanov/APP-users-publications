@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
             : HomePage.name;
 
     return MaterialApp(
+      scrollBehavior: MyCustomScrollBehavior(),
       theme: Provider.of<ThemeChanger>(context).currentTheme,
       debugShowCheckedModeBanner: false,
       title: 'Users-Publications',
@@ -42,4 +44,12 @@ class MyApp extends StatelessWidget {
       routes: routes,
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

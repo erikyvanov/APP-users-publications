@@ -131,6 +131,7 @@ class _Slides extends StatefulWidget {
 
 class __SlidesState extends State<_Slides> {
   final pageViweController = PageController();
+  final ScrollController controller = ScrollController();
 
   @override
   void initState() {
@@ -152,6 +153,7 @@ class __SlidesState extends State<_Slides> {
   Widget build(BuildContext context) {
     return Container(
       child: PageView(
+        allowImplicitScrolling: true,
         physics: BouncingScrollPhysics(),
         controller: pageViweController,
         children: widget.slides.map((slide) => _Slide(slide)).toList(),
